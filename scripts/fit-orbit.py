@@ -377,7 +377,7 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
     if not os.path.exists("results"):
         os.mkdir("results")
 
-    sampler.lnpostfn = None
+    sampler.lnprobfn = None
     sampler.pool = None
     sampler_path = os.path.join("results", "{}_sampler.pickle".format(data_file_basename))
     logger.debug("saving emcee sampler to: {}".format(sampler_path))
