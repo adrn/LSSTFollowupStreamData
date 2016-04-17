@@ -123,7 +123,7 @@ def _unpack(p, freeze=None):
     # POTENTIAL PARAMETERS
     potential_params = dict()
 
-    for param_name in ['v_c', 'r_h', 'q1', 'q2', 'q3']:
+    for param_name in ['v_c', 'r_h', 'q1', 'q2', 'q3', 'phi']:
         if 'potential_{}'.format(param_name) not in freeze:
             potential_params[param_name] = p[count_ix]
             count_ix += 1
