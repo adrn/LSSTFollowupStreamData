@@ -331,11 +331,19 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
     freeze['t_forw'] = 0.
     if potential_name == 'spherical':
         freeze['t_back'] = -55. # HACK: figured out at bottom of notebook
+        potential_freeze_params = ['r_h', 'q1', 'q2', 'q3']
+
     elif potential_name == 'triaxial':
         freeze['t_back'] = -68. # HACK: figured out at bottom of notebook
+        potential_freeze_params = ['r_h', 'q1']
 
-    for k,v in potential.parameters.items():
-        freeze['potential_{}'.format(k)] = v.value
+    for k in potential_freeze_params:
+        freeze['potential_{}'.format(k)] = potential.parameters[k].value
+
+    pot_guess = []
+    for k in potential.parameters.keys():
+        if k in potential_freeze_params: continue
+        pot_guess += [potential.parameters[k].value]
 
     idx = data['phi1'].argmin()
     p0_guess = [data['phi2'].radian[idx],
@@ -343,6 +351,7 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
                 data['mul'].decompose(galactic).value[idx],
                 data['mub'].decompose(galactic).value[idx],
                 data['vr'].decompose(galactic).value[idx]]
+    p0_guess = p0_guess + pot_guess
     logger.debug("Initial guess: {}".format(p0_guess))
 
     # first, optimize to get a good guess to initialize MCMC
