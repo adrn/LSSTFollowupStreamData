@@ -3,6 +3,7 @@ from __future__ import division, print_function
 # Standard library
 import pickle
 import os
+import sys
 
 # Third-party
 from astropy import log as logger
@@ -369,16 +370,21 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
     _ = sampler.run_mcmc(mcmc_p0, N=n_iterations)
     logger.info("finished sampling")
 
+    pool.close()
+
     # same sampler to pickle file
     data_file_basename = os.path.splitext(os.path.basename(data_file))[0]
     if not os.path.exists("results"):
         os.mkdir("results")
 
     sampler.lnpostfn = None
+    sampler.pool = None
     sampler_path = os.path.join("results", "{}_sampler.pickle".format(data_file_basename))
     logger.debug("saving emcee sampler to: {}".format(sampler_path))
     with open(sampler_path, 'wb') as f:
         pickle.dump(sampler, f)
+
+    sys.exit(0)
 
 if __name__ == "__main__":
     from argparse import ArgumentParser
