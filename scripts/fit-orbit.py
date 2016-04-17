@@ -311,7 +311,8 @@ def ln_posterior(p, *args, **kwargs):
 
     return lp + ll.sum()
 
-def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None):
+def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None,
+         overwrite=False):
     np.random.seed(42)
 
     pool = get_pool(mpi=mpi)
@@ -374,12 +375,15 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
 
     # same sampler to pickle file
     data_file_basename = os.path.splitext(os.path.basename(data_file))[0]
+    sampler_path = os.path.join("results", "{}_sampler.pickle".format(data_file_basename))
     if not os.path.exists("results"):
         os.mkdir("results")
 
+    if os.path.exists(sampler_path) and overwrite:
+        os.remove(sampler_path)
+
     sampler.lnprobfn = None
     sampler.pool = None
-    sampler_path = os.path.join("results", "{}_sampler.pickle".format(data_file_basename))
     logger.debug("saving emcee sampler to: {}".format(sampler_path))
     with open(sampler_path, 'wb') as f:
         pickle.dump(sampler, f)
@@ -396,6 +400,8 @@ if __name__ == "__main__":
                         default=False, help="Be chatty! (default = False)")
     parser.add_argument("-q", "--quiet", action="store_true", dest="quiet",
                         default=False, help="Be quiet! (default = False)")
+    parser.add_argument("-o", "--overwrite", action="store_true", dest="overwrite",
+                        default=False, help="DESTROY. FILES.")
 
     parser.add_argument("--potential", dest="potential_name", required=True,
                         help="Name of the potential YAML file.")
@@ -421,4 +427,5 @@ if __name__ == "__main__":
         logger.setLevel(logging.INFO)
 
     main(potential_name=args.potential_name, data_file=args.data_file,
-         mpi=args.mpi, n_walkers=args.mcmc_walkers, n_iterations=args.mcmc_steps)
+         mpi=args.mpi, n_walkers=args.mcmc_walkers, n_iterations=args.mcmc_steps,
+         overwrite=args.overwrite)
