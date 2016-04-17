@@ -328,9 +328,9 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
 
     freeze = dict()
     # these estimated from the plots
-    freeze['phi2_sigma'] = np.radians(0.9)
-    freeze['d_sigma'] = 0.15
-    freeze['vr_sigma'] = (1.5*u.km/u.s).decompose(galactic).value
+    freeze['phi2_sigma'] = np.radians(0.5)
+    freeze['d_sigma'] = 0.2
+    freeze['vr_sigma'] = (2*u.km/u.s).decompose(galactic).value
     freeze['t_forw'] = 0.
     if potential_name == 'spherical':
         freeze['t_back'] = -55. # HACK: figured out at bottom of notebook
