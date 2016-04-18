@@ -334,11 +334,11 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
     freeze['t_forw'] = 0.
     if potential_name == 'spherical':
         freeze['t_back'] = -55. # HACK: figured out at bottom of notebook
-        potential_freeze_params = ['r_h', 'q1', 'q2', 'q3', 'phi']
+        potential_freeze_params = ['q1', 'q2', 'q3', 'phi']
 
     elif potential_name == 'triaxial':
         freeze['t_back'] = -68. # HACK: figured out at bottom of notebook
-        potential_freeze_params = ['r_h', 'q1']
+        potential_freeze_params = ['q1']
 
     for k in potential_freeze_params:
         logger.debug("freezing potential:{}".format(k))
