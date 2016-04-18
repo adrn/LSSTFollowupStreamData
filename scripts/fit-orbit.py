@@ -329,15 +329,16 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
     freeze = dict()
     # these estimated from the plots
     freeze['phi2_sigma'] = np.radians(0.5)
-    freeze['d_sigma'] = 0.2
-    freeze['vr_sigma'] = (2*u.km/u.s).decompose(galactic).value
+    freeze['d_sigma'] = 1.5
+    freeze['vr_sigma'] = (1*u.km/u.s).decompose(galactic).value
     freeze['t_forw'] = 0.
     if potential_name == 'spherical':
-        freeze['t_back'] = -55. # HACK: figured out at bottom of notebook
+        freeze['t_back'] = -250. # HACK: figured out at bottom of notebook
         potential_freeze_params = ['q1', 'q2', 'q3', 'phi']
 
     elif potential_name == 'triaxial':
-        freeze['t_back'] = -68. # HACK: figured out at bottom of notebook
+        freeze['t_forw'] = -150
+        freeze['t_back'] = 0. # HACK: figured out at bottom of notebook
         potential_freeze_params = ['q1']
 
     for k in potential_freeze_params:
