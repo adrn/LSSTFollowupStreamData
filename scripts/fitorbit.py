@@ -189,13 +189,13 @@ def ln_prior(p, data, err, R, Potential, dt, freeze=None):
     if potential_params['r_h'] < 1. or potential_params['r_h'] > 50:
         return -np.inf
 
-    if potential_params['q1'] < 0.8 or potential_params['q1'] > 1.:
+    if potential_params['q1'] < 0.5 or potential_params['q1'] > 1.:
         return -np.inf
 
-    if potential_params['q2'] < 0.8 or potential_params['q2'] > 1.:
+    if potential_params['q2'] < 0.5 or potential_params['q2'] > 1.:
         return -np.inf
 
-    if potential_params['q3'] < 0.8 or potential_params['q3'] > 1.:
+    if potential_params['q3'] < 0.5 or potential_params['q3'] > 1.:
         return -np.inf
 
     if potential_params['phi'] < -np.pi or potential_params['phi'] > np.pi:
