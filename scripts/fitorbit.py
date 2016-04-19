@@ -337,8 +337,7 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
         potential_freeze_params = ['q1', 'q2', 'q3', 'phi']
 
     elif potential_name == 'triaxial':
-        freeze['t_forw'] = -150
-        freeze['t_back'] = 0. # HACK: figured out at bottom of notebook
+        freeze['t_back'] = -150 # HACK: figured out at bottom of notebook
         potential_freeze_params = ['q1']
 
     for k in potential_freeze_params:
