@@ -17,4 +17,4 @@ galcen_frame['vlsr'] = vlsr
 
 potentials = OrderedDict()
 potentials['spherical'] = gp.LogarithmicPotential(v_c=175*u.km/u.s, r_h=20., q1=1., q2=1., q3=1., units=galactic)
-potentials['triaxial'] = gp.LogarithmicPotential(v_c=175*u.km/u.s, r_h=20., q1=1., q2=0.95, q3=0.9, units=galactic)
+potentials['triaxial'] = gp.LogarithmicPotential(v_c=175*u.km/u.s, r_h=20., q1=1., q2=0.9, q3=0.78, units=galactic)
