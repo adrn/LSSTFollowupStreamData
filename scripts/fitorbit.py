@@ -333,11 +333,11 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
     freeze['vr_sigma'] = (1*u.km/u.s).decompose(galactic).value
     freeze['t_forw'] = 0.
     if potential_name == 'spherical':
-        freeze['t_back'] = -350. # HACK: figured out at bottom of notebook
+        freeze['t_back'] = -700. # HACK: figured out at bottom of notebook
         potential_freeze_params = ['r_h', 'q1', 'q2', 'q3', 'phi']
 
     elif potential_name == 'triaxial':
-        freeze['t_back'] = -250 # HACK: figured out at bottom of notebook
+        freeze['t_back'] = -600 # HACK: figured out at bottom of notebook
         potential_freeze_params = ['r_h', 'q1', 'phi']
 
     for k in potential_freeze_params:
