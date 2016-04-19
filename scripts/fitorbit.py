@@ -189,13 +189,13 @@ def ln_prior(p, data, err, R, Potential, dt, freeze=None):
     if potential_params['r_h'] < 1. or potential_params['r_h'] > 50:
         return -np.inf
 
-    if potential_params['q1'] < 0.5 or potential_params['q1'] > 1.:
+    if potential_params['q1'] < 0.5 or potential_params['q1'] > 1.5:
         return -np.inf
 
-    if potential_params['q2'] < 0.5 or potential_params['q2'] > 1.:
+    if potential_params['q2'] < 0.5 or potential_params['q2'] > 1.5:
         return -np.inf
 
-    if potential_params['q3'] < 0.5 or potential_params['q3'] > 1.:
+    if potential_params['q3'] < 0.5 or potential_params['q3'] > 1.5:
         return -np.inf
 
     if potential_params['phi'] < -np.pi or potential_params['phi'] > np.pi:
@@ -333,7 +333,7 @@ def main(data_file, potential_name, mpi=False, n_walkers=None, n_iterations=None
     freeze['vr_sigma'] = (1*u.km/u.s).decompose(galactic).value
     freeze['t_forw'] = 0.
     if potential_name == 'spherical':
-        freeze['t_back'] = -700. # HACK: figured out at bottom of notebook
+        freeze['t_back'] = -600. # HACK: figured out at bottom of notebook
         potential_freeze_params = ['r_h', 'q1', 'q2', 'q3', 'phi']
 
     elif potential_name == 'triaxial':
